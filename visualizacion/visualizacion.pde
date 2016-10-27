@@ -1,4 +1,5 @@
 int NUM_CONTINENTES = 7;
+int continenteSeleccionado = 1;
 Table table;
 Pais[][] paises;
 float angulo = 0;
@@ -26,7 +27,8 @@ void setup() {
     float porcentajeGastoSalud = row.getFloat("Total expenditure on health as percentage of gross domestic product");
     paises[continente-1][cuentaPaises[continente-1]]=new Pais(nombre,expectativaVida,porcentajeGastoSalud);
     cuentaPaises[continente-1]++;
-  } //<>//
+  }
+  continenteSeleccionado = 0; //<>//
 }
 
 void draw() {
@@ -37,13 +39,13 @@ void draw() {
   float w = 0;
   float sen = 0;
   float mycolor = 0;
-  for(int i = 0; i < paises.length; i++){
+  for(int i = 0; i < paises[continenteSeleccionado].length; i++){
     y=280;
-    r = map(paises[i].expectativaVida, 0, 100, 0, 300);
-    if(Double.isNaN(paises[i].porcentajeGastoSalud)) {
+    r = map(paises[continenteSeleccionado][i].expectativaVida, 0, 100, 0, 300);
+    if(Double.isNaN(paises[continenteSeleccionado][i].porcentajeGastoSalud)) {
       w = 1;
     } else {
-      w = map(paises[i].porcentajeGastoSalud, 0, 17, 1, 10);
+      w = map(paises[continenteSeleccionado][i].porcentajeGastoSalud, 0, 17, 1, 10);
     }
     sen = map(sin(angulo),-1,1,0,2);
     y -= r*sen;
@@ -56,7 +58,7 @@ void draw() {
     fill(0);
     line(x,580-r*2,x+w,580-r*2);
     if(mouseX>=x&&mouseX<=x+w&&mouseY>=580-r*2-2&&mouseY<=580-r*2+2) {
-      text(paises[i].nombre, x, 580-r*2-2); 
+      text(paises[continenteSeleccionado][i].nombre, x, 580-r*2-2); 
     }
     x+=10;
   }
