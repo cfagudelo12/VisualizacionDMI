@@ -1,3 +1,4 @@
+PShape middleEast;
 int NUM_CONTINENTES = 7;
 int continenteSeleccionado = 1;
 Table table;
@@ -28,7 +29,8 @@ void setup() {
     paises[continente-1][cuentaPaises[continente-1]]=new Pais(nombre,expectativaVida,porcentajeGastoSalud);
     cuentaPaises[continente-1]++;
   }
-  continenteSeleccionado = 0; //<>//
+  continenteSeleccionado = 0;
+  middleEast = loadShape("middle east.svg"); //<>//
 }
 
 void draw() {
@@ -39,6 +41,7 @@ void draw() {
   float w = 0;
   float sen = 0;
   float mycolor = 0;
+  shape(middleEast, 110, 90, 100, 100);
   for(int i = 0; i < paises[continenteSeleccionado].length; i++){
     y=280;
     r = map(paises[continenteSeleccionado][i].expectativaVida, 0, 100, 0, 300);
