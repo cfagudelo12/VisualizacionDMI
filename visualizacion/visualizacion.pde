@@ -1,27 +1,37 @@
+int NUM_CONTINENTES = 7;
 Table table;
-Pais[] paises;
+Pais[][] paises;
 float angulo = 0;
 void setup() {
   size(1300,600);
   smooth();
   strokeWeight(3);
   textSize(16);
-  table = loadTable("WHO.csv", "header");
-  paises = new Pais[table.getRowCount()];
-  int c = 0;
   fill(0);
+  table = loadTable("WHO.csv", "header");
+  int[] cuentaPaises = new int[NUM_CONTINENTES]; //<>//
   for (TableRow row : table.rows()) {
+    int continente = row.getInt("Continent");
+    cuentaPaises[continente-1]++;
+  }
+  paises = new Pais[NUM_CONTINENTES][]; //<>//
+  for(int i = 0; i < NUM_CONTINENTES; i++) {
+    paises[i] = new Pais[cuentaPaises[i]];
+  }
+  cuentaPaises = new int[NUM_CONTINENTES]; //<>//
+  for (TableRow row : table.rows()) {
+    int continente = row.getInt("Continent");
     String nombre = row.getString("Country");
     int expectativaVida = row.getInt("Life expectancy at birth (years) both sexes");
     float porcentajeGastoSalud = row.getFloat("Total expenditure on health as percentage of gross domestic product");
-    paises[c]=new Pais(nombre,expectativaVida,porcentajeGastoSalud);
-    c++;
-  }
+    paises[continente-1][cuentaPaises[continente-1]]=new Pais(nombre,expectativaVida,porcentajeGastoSalud);
+    cuentaPaises[continente-1]++;
+  } //<>//
 }
 
 void draw() {
-  background(255);
-  float y = 0;
+  background(255); //<>//
+  float y = 0; //<>//
   float x = 0;
   float r = 0;
   float w = 0;
