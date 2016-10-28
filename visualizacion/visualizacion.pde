@@ -1,11 +1,11 @@
 PShape middleEast;
 int NUM_CONTINENTES = 7;
-int continenteSeleccionado = 1;
+int continenteSeleccionado;
 Table table;
 Pais[][] paises;
 float angulo = 0;
 void setup() {
-  size(1300,600);
+  size(1300,800);
   smooth();
   strokeWeight(3);
   textSize(16);
@@ -29,7 +29,9 @@ void setup() {
     paises[continente-1][cuentaPaises[continente-1]]=new Pais(nombre,expectativaVida,porcentajeGastoSalud);
     cuentaPaises[continente-1]++;
   }
-  continenteSeleccionado = 0;
+  //Middle east = 0
+  
+  continenteSeleccionado = 1;
   middleEast = loadShape("middle east.svg"); //<>//
 }
 
