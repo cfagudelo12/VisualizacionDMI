@@ -1,70 +1,56 @@
-PShape middleEast;
-int NUM_CONTINENTES = 7;
-int continenteSeleccionado;
-Table table;
-Pais[][] paises;
-float angulo = 0;
+Table dataset; //<>// //<>// //<>// //<>// //<>// //<>//
+Table codigos;
+int renglon = 30;
+PFont letra;
+int x = 0, y = 300;
+PShape mundo;
+PShape paisActual;
 void setup() {
-  size(1300,800);
-  smooth();
-  strokeWeight(3);
-  textSize(16);
+  size(1000, 600);
+  background(255);
+  dataset = loadTable("WHO.csv", "header");
+  codigos = loadTable("Codigos.csv", "header");
+  mundo = loadShape("world.svg");  
+  letra = createFont("SansSerif", 48);
+  textFont(letra, 30);
   fill(0);
-  table = loadTable("WHO.csv", "header");
-  int[] cuentaPaises = new int[NUM_CONTINENTES]; //<>//
-  for (TableRow row : table.rows()) {
-    int continente = row.getInt("Continent");
-    cuentaPaises[continente-1]++;
-  }
-  paises = new Pais[NUM_CONTINENTES][]; //<>//
-  for(int i = 0; i < NUM_CONTINENTES; i++) {
-    paises[i] = new Pais[cuentaPaises[i]];
-  }
-  cuentaPaises = new int[NUM_CONTINENTES]; //<>//
-  for (TableRow row : table.rows()) {
-    int continente = row.getInt("Continent");
-    String nombre = row.getString("Country");
-    int expectativaVida = row.getInt("Life expectancy at birth (years) both sexes");
-    float porcentajeGastoSalud = row.getFloat("Total expenditure on health as percentage of gross domestic product");
-    paises[continente-1][cuentaPaises[continente-1]]=new Pais(nombre,expectativaVida,porcentajeGastoSalud);
-    cuentaPaises[continente-1]++;
-  }
-  //Middle east = 0
-  
-  continenteSeleccionado = 1;
-  middleEast = loadShape("middle east.svg"); //<>//
+  text(dataset.getRowCount() + " total rows in table", 20, renglon);
+  renglon = renglon + 30;
 }
-
 void draw() {
-  background(255); //<>//
-  float y = 0; //<>//
-  float x = 0;
-  float r = 0;
-  float w = 0;
-  float sen = 0;
-  float mycolor = 0;
-  shape(middleEast, 110, 90, 100, 100);
-  for(int i = 0; i < paises[continenteSeleccionado].length; i++){
-    y=280;
-    r = map(paises[continenteSeleccionado][i].expectativaVida, 0, 100, 0, 300);
-    if(Double.isNaN(paises[continenteSeleccionado][i].porcentajeGastoSalud)) {
-      w = 1;
+  background(255);
+  fill(255);
+  stroke(0);
+  mundo.disableStyle();
+  shape(mundo, 0, 0, width, height);
+  x = 0;
+  for (TableRow row : dataset.rows()) {   
+    String pais = row.getString("Country");
+    String codigo = "";
+    for(TableRow fila : codigos.rows()) {
+      String nombre = fila.getString("Common Name");
+      if(nombre.equals(pais)) {
+        codigo = fila.getString("ISO 3166-1 2 Letter Code");
+        break;
+      }
+    }
+    noStroke();
+    if ((mouseX>x*6)&&(mouseX<x*6+4)&&
+      (mouseY>580)&&(mouseY<600)) {
+      fill(255, 0, 0);
+      text(pais, x*6, 560);
+      paisActual = mundo.getChild(codigo);
+      if(paisActual!=null) {
+        paisActual.disableStyle();
+        fill(255,0,0);
+        noStroke();
+        shape(paisActual, 0, 0, width, height);
+      }
     } else {
-      w = map(paises[continenteSeleccionado][i].porcentajeGastoSalud, 0, 17, 1, 10);
+      fill(180);
     }
-    sen = map(sin(angulo),-1,1,0,2);
-    y -= r*sen;
-    mycolor = map(y,0,580,100,255);
-    fill(255-mycolor);
-    stroke(255-mycolor);
-    angulo += 0.00005;
-    rect(x,300+y,w,10);
-    stroke(0);
-    fill(0);
-    line(x,580-r*2,x+w,580-r*2);
-    if(mouseX>=x&&mouseX<=x+w&&mouseY>=580-r*2-2&&mouseY<=580-r*2+2) {
-      text(paises[continenteSeleccionado][i].nombre, x, 580-r*2-2); 
-    }
-    x+=10;
+    rect(x*6, 580, 4, 20);    
+    renglon = renglon + 30;
+    x = x + 1;
   }
 }
