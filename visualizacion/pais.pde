@@ -33,11 +33,13 @@ class Pais {
   //Years of life lost to injuries (%)
   //Years of life lost to non-communicable diseases (%)
   
+  public String codigo;
   public String nombre;
   public int expectativaVida;
   public float porcentajeGastoSalud;
   
-  public Pais(String nombre, int expectativaVida, float porcentajeGastoSalud) {
+  public Pais(String codigo, String nombre, int expectativaVida, float porcentajeGastoSalud) {
+    this.codigo = codigo;
     this.nombre = nombre;
     this.expectativaVida = expectativaVida;
     this.porcentajeGastoSalud = porcentajeGastoSalud;

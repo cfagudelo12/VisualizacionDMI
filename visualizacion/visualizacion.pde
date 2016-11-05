@@ -1,5 +1,5 @@
 Table dataset; //<>// //<>// //<>// //<>// //<>// //<>//
-Table codigos;
+Pais[] paises;
 int renglon = 30;
 PFont letra;
 int x = 0, y = 300;
@@ -8,14 +8,23 @@ PShape paisActual;
 void setup() {
   size(1000, 600);
   background(255);
-  dataset = loadTable("WHO.csv", "header");
-  codigos = loadTable("Codigos.csv", "header");
   mundo = loadShape("world.svg");  
   letra = createFont("SansSerif", 48);
   textFont(letra, 30);
   fill(0);
   text(dataset.getRowCount() + " total rows in table", 20, renglon);
   renglon = renglon + 30;
+  dataset = loadTable("WHO.csv", "header");
+  paises = new Pais[dataset.getRowCount()];
+  int c = 0;
+  for (TableRow row : dataset.rows()) {
+    String codigo = row.getString("ISO 3166-1 2 Letter Code");
+    String nombre = row.getString("Country");
+    int expectativaVida = row.getInt("Life expectancy at birth (years) both sexes");
+    float porcentajeGastoSalud = row.getFloat("Total expenditure on health as percentage of gross domestic product");
+    paises[c]=new Pais(codigo,nombre,expectativaVida,porcentajeGastoSalud);
+    c++;
+  }
 }
 void draw() {
   background(255);
@@ -24,22 +33,13 @@ void draw() {
   mundo.disableStyle();
   shape(mundo, 0, 0, width, height);
   x = 0;
-  for (TableRow row : dataset.rows()) {   
-    String pais = row.getString("Country");
-    String codigo = "";
-    for(TableRow fila : codigos.rows()) {
-      String nombre = fila.getString("Common Name");
-      if(nombre.equals(pais)) {
-        codigo = fila.getString("ISO 3166-1 2 Letter Code");
-        break;
-      }
-    }
+  for (int i = 0; i < paises.length; i++) {   
     noStroke();
     if ((mouseX>x*6)&&(mouseX<x*6+4)&&
       (mouseY>580)&&(mouseY<600)) {
       fill(255, 0, 0);
-      text(pais, x*6, 560);
-      paisActual = mundo.getChild(codigo);
+      text(paises[i].nombre, x*6, 560);
+      paisActual = mundo.getChild(paises[i].codigo);
       if(paisActual!=null) {
         paisActual.disableStyle();
         fill(255,0,0);
