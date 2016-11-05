@@ -32,8 +32,8 @@ void setup() {
       fill(255);
       stroke(0);
       if(paises[i].expectativaVida!=0) {
-        //float scale = (float)paises[i].expectativaVida/modaExpectativaVida;
-        //paisActual.scale(scale);
+        float scale = (float)paises[i].expectativaVida/modaExpectativaVida;
+        paisActual.scale(scale);
       }
       shape(paisActual, 0, 0, width, height);
     }
