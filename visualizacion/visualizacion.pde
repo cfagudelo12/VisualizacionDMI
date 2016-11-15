@@ -23,6 +23,7 @@ void setup() {
   dataset = loadTable("WHO.csv", "header");
   paises = new Pais[dataset.getRowCount()];
   int c = 0;
+  float scale = 1;
   for (TableRow row : dataset.rows()) {
     String codigo = row.getString("ISO 3166-1 2 Letter Code");
     String nombre = row.getString("Country");
@@ -33,6 +34,8 @@ void setup() {
     int densidadEnfermeras = row.getInt("Nursing and midwifery personnel density (per 10 000 population)");
     int densidadFarmacias = row.getInt("Pharmaceutical personnel density (per 10 000 population)");
     PShape shape = loadShape(nombre+".svg");
+    scale -= 0.05;
+    shape.scale(scale);
     paises[c]=new Pais(codigo,nombre,expectativaVida,porcentajeGastoSalud,densidadMedicos,densidadDentistas,densidadEnfermeras,densidadFarmacias,shape);
     c++;
   }
@@ -74,10 +77,9 @@ void dibujarPaisesEnfermeras() {
     //} else if(angulo>PI&&angulo<3*PI/4) {
     //} else {
     //}
-    println(paises[i].densidadEnfermeras);
     float x = baseMargin+paises[i].densidadEnfermeras*multiplier;
     float y = baseMargin+paises[i].densidadEnfermeras*multiplier;
-    shape(paises[i].shape, mouseX+x*cos(angulo), mouseY+y*sin(angulo),100,100);
+    shape(paises[i].shape, mouseX+x*cos(angulo), mouseY+y*sin(angulo));
     angulo+=avanceAngulo;
   }
 }
