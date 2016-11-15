@@ -14,7 +14,7 @@ PShape farmacias;
 PShape medicos;
 //Icon made by Freepik from www.flaticon.com 
 PShape dentistas;
-float radio = 2*PI/20;
+float radio = 2*PI/14;
 void setup() {
   smooth(); //<>//
   size(1820, 980);
@@ -45,7 +45,6 @@ void setup() {
 void draw() {
   background(255);
   dibujarIconos();
-  shape(paises[contador].shape,0,0);
   if(mouseX>=0&&mouseX<=width/2&&mouseY>=0&&mouseY<=height/2) {
   } else if(mouseX>width/2&&mouseX<=width&&mouseY>=0&&mouseY<=height/2) {
   } else if(mouseX>=0&&mouseX<=width/2&&mouseY>height/2&&mouseY<=height) {
