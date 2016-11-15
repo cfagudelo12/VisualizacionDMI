@@ -1,11 +1,11 @@
 Table dataset; //<>//
 Pais[] paises;
 PFont letra;
-int x = 0;
-int y = 300;
 int contador = 0;
 int margin = 100;
 int pshapes = 80;
+int baseMargin = 50;
+int multiplier = 3;
 //Icon made by Freepik from www.flaticon.com 
 PShape enfermeras;
 //Icon made by Freepik from www.flaticon.com 
@@ -14,7 +14,7 @@ PShape farmacias;
 PShape medicos;
 //Icon made by Freepik from www.flaticon.com 
 PShape dentistas;
-float radio = 2*PI/14;
+float avanceAngulo = 2*PI/14;
 void setup() {
   smooth(); //<>//
   size(1820, 980);
@@ -46,9 +46,13 @@ void draw() {
   background(255);
   dibujarIconos();
   if(mouseX>=0&&mouseX<=width/2&&mouseY>=0&&mouseY<=height/2) {
+    dibujarPaisesEnfermeras();
   } else if(mouseX>width/2&&mouseX<=width&&mouseY>=0&&mouseY<=height/2) {
+    dibujarPaisesFarmacias();
   } else if(mouseX>=0&&mouseX<=width/2&&mouseY>height/2&&mouseY<=height) {
+    dibujarPaisesMedicos();
   } else if(mouseX>width/2&&mouseX<=width&&mouseY>height/2&&mouseY<=height) {
+    dibujarPaisesDentistas();
   }
 }
 
@@ -68,4 +72,65 @@ void dibujarIconos() {
   shape(farmacias,width-2*margin,margin,pshapes,pshapes);
   shape(medicos,margin,height-2*margin,pshapes,pshapes);
   shape(dentistas,width-2*margin,height-2*margin,pshapes,pshapes);
+}
+
+void dibujarPaisesEnfermeras() {
+  float angulo = 0;
+  for(int i = 0; i < paises.length; i++) {
+    //if(angulo>=0&&angulo<=PI/2) {
+    //} else if(angulo>PI/2&&angulo<=PI) {
+    //} else if(angulo>PI&&angulo<3*PI/4) {
+    //} else {
+    //}
+    println(paises[i].densidadEnfermeras);
+    float x = baseMargin+paises[i].densidadEnfermeras*multiplier;
+    float y = baseMargin+paises[i].densidadEnfermeras*multiplier;
+    shape(paises[i].shape, mouseX+x*cos(angulo), mouseY+y*sin(angulo),100,100);
+    angulo+=avanceAngulo;
+  }
+}
+
+void dibujarPaisesMedicos() {
+  float angulo = 0;
+  for(int i = 0; i < paises.length; i++) {
+    //if(angulo>=0&&angulo<=PI/2) {
+    //} else if(angulo>PI/2&&angulo<=PI) {
+    //} else if(angulo>PI&&angulo<3*PI/4) {
+    //} else {
+    //}
+    float x = baseMargin+paises[i].densidadMedicos*multiplier;
+    float y = baseMargin+paises[i].densidadMedicos*multiplier;
+    shape(paises[i].shape, mouseX+x*cos(angulo), mouseY+y*sin(angulo),100,100);
+    angulo+=avanceAngulo;
+  }
+}
+
+void dibujarPaisesFarmacias() {
+  float angulo = 0;
+  for(int i = 0; i < paises.length; i++) {
+    //if(angulo>=0&&angulo<=PI/2) {
+    //} else if(angulo>PI/2&&angulo<=PI) {
+    //} else if(angulo>PI&&angulo<3*PI/4) {
+    //} else {
+    //}
+    float x = baseMargin+paises[i].densidadFarmacias*multiplier;
+    float y = baseMargin+paises[i].densidadFarmacias*multiplier;
+    shape(paises[i].shape, mouseX+x*cos(angulo), mouseY+y*sin(angulo),100,100);
+    angulo+=avanceAngulo;
+  }
+}
+
+void dibujarPaisesDentistas() {
+  float angulo = 0;
+  for(int i = 0; i < paises.length; i++) {
+    //if(angulo>=0&&angulo<=PI/2) {
+    //} else if(angulo>PI/2&&angulo<=PI) {
+    //} else if(angulo>PI&&angulo<3*PI/4) {
+    //} else {
+    //}
+    float x = baseMargin+paises[i].densidadDentistas*multiplier;
+    float y = baseMargin+paises[i].densidadDentistas*multiplier;
+    shape(paises[i].shape, mouseX+x*cos(angulo), mouseY+y*sin(angulo),100,100);
+    angulo+=avanceAngulo;
+  }
 }
