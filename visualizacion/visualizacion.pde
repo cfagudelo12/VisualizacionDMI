@@ -14,7 +14,6 @@ PShape farmacias;
 PShape medicos;
 //Icon made by Freepik from www.flaticon.com 
 PShape dentistas;
-PShape japon;
 float radio = 2*PI/20;
 void setup() {
   smooth(); //<>//
@@ -46,7 +45,7 @@ void setup() {
 void draw() {
   background(255);
   dibujarIconos();
-  shape(paises[contador].shape,width/2,height/2);
+  shape(paises[contador].shape,0,0);
 }
 
 void cargarIconos() {
@@ -54,7 +53,6 @@ void cargarIconos() {
   farmacias = loadShape("pill-and-tablet.svg");
   medicos = loadShape("stethoscope.svg");
   dentistas = loadShape("tooth-with-braces.svg");
-  japon = loadShape("Flag-map_of_Japan.svg");
 }
 
 void mouseClicked() {
@@ -66,5 +64,4 @@ void dibujarIconos() {
   shape(farmacias,width-2*margin,margin,pshapes,pshapes);
   shape(medicos,margin,height-2*margin,pshapes,pshapes);
   shape(dentistas,width-2*margin,height-2*margin,pshapes,pshapes);
-  shape(japon,width/2,height/2,pshapes,pshapes);
 }
