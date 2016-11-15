@@ -31,8 +31,9 @@ class Pais {
   public int densidadDentistas;
   public int densidadEnfermeras;
   public int densidadFarmacias;
+  public PShape shape;
   
-  public Pais(String codigo, String nombre, int expectativaVida, float porcentajeGastoSalud, int densidadMedicos, int densidadDentistas, int densidadEnfermeras, int densidadFarmacias) {
+  public Pais(String codigo, String nombre, int expectativaVida, float porcentajeGastoSalud, int densidadMedicos, int densidadDentistas, int densidadEnfermeras, int densidadFarmacias, PShape shape) {
     this.codigo = codigo;
     this.nombre = nombre;
     this.expectativaVida = expectativaVida;
@@ -41,6 +42,7 @@ class Pais {
     this.densidadDentistas = densidadDentistas;
     this.densidadEnfermeras = densidadEnfermeras;
     this.densidadFarmacias = densidadFarmacias;
+    this.shape = shape;
   }
   
   public String toString() {

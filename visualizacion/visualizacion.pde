@@ -3,10 +3,9 @@ Pais[] paises;
 PFont letra;
 int x = 0;
 int y = 300;
+int contador = 0;
 int margin = 100;
 int pshapes = 80;
-PShape mundo;
-PShape paisActual;
 //Icon made by Freepik from www.flaticon.com 
 PShape enfermeras;
 //Icon made by Freepik from www.flaticon.com 
@@ -15,22 +14,16 @@ PShape farmacias;
 PShape medicos;
 //Icon made by Freepik from www.flaticon.com 
 PShape dentistas;
+PShape japon;
 float radio = 2*PI/20;
 void setup() {
-  smooth();
+  smooth(); //<>//
   size(1820, 980);
   background(255);
-  mundo = loadShape("world.svg");
-  enfermeras = loadShape("nurse.svg");
-  shape(enfermeras,margin,margin,pshapes,pshapes);
-  farmacias = loadShape("pill-and-tablet.svg");
-  shape(farmacias,width-margin,margin,pshapes,pshapes);
-  medicos = loadShape("stethoscope.svg");
-  shape(medicos,margin,height-margin,pshapes,pshapes);
-  dentistas = loadShape("tooth-with-braces.svg");
-  shape(dentistas,width-margin,height-margin,pshapes,pshapes);
-  letra = createFont("SansSerif", 48);
-  textFont(letra, 30);
+  cargarIconos();
+  dibujarIconos();
+  //letra = createFont("SansSerif", 48);
+  //textFont(letra, 30);
   fill(0);
   dataset = loadTable("WHO.csv", "header");
   paises = new Pais[dataset.getRowCount()];
@@ -44,21 +37,34 @@ void setup() {
     int densidadDentistas = row.getInt("Dentistry personnel density (per 10 000 population)");
     int densidadEnfermeras = row.getInt("Nursing and midwifery personnel density (per 10 000 population)");
     int densidadFarmacias = row.getInt("Pharmaceutical personnel density (per 10 000 population)");
-    paises[c]=new Pais(codigo,nombre,expectativaVida,porcentajeGastoSalud,densidadMedicos,densidadDentistas,densidadEnfermeras,densidadFarmacias);
+    PShape shape = loadShape(nombre+".svg");
+    paises[c]=new Pais(codigo,nombre,expectativaVida,porcentajeGastoSalud,densidadMedicos,densidadDentistas,densidadEnfermeras,densidadFarmacias,shape);
     c++;
   }
-  for (int i = 0; i < paises.length; i++) {   
-    noStroke();
-    paisActual = mundo.getChild(paises[i].codigo);
-    if(paisActual!=null) {
-      paisActual.disableStyle();
-      fill(255);
-      stroke(0);
-      if(paises[i].expectativaVida!=0) {
-        float scale = 1;
-        paisActual.scale(scale);
-      }
-      shape(paisActual, 0, 0, width, height);
-    }
-  }
+}
+
+void draw() {
+  background(255);
+  dibujarIconos();
+  shape(paises[contador].shape,width/2,height/2);
+}
+
+void cargarIconos() {
+  enfermeras = loadShape("nurse.svg");
+  farmacias = loadShape("pill-and-tablet.svg");
+  medicos = loadShape("stethoscope.svg");
+  dentistas = loadShape("tooth-with-braces.svg");
+  japon = loadShape("Flag-map_of_Japan.svg");
+}
+
+void mouseClicked() {
+  contador++;
+}
+
+void dibujarIconos() {
+  shape(enfermeras,margin,margin,pshapes,pshapes);
+  shape(farmacias,width-2*margin,margin,pshapes,pshapes);
+  shape(medicos,margin,height-2*margin,pshapes,pshapes);
+  shape(dentistas,width-2*margin,height-2*margin,pshapes,pshapes);
+  shape(japon,width/2,height/2,pshapes,pshapes);
 }
