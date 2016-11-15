@@ -34,10 +34,10 @@ void setup() {
     int densidadEnfermeras = row.getInt("Nursing and midwifery personnel density (per 10 000 population)");
     int densidadFarmacias = row.getInt("Pharmaceutical personnel density (per 10 000 population)");
     PShape shape = loadShape(nombre+".svg");
-    scale -= 0.05;
     shape.scale(scale);
     paises[c]=new Pais(codigo,nombre,expectativaVida,porcentajeGastoSalud,densidadMedicos,densidadDentistas,densidadEnfermeras,densidadFarmacias,shape);
     c++;
+    scale -= 0.06;
   }
 }
 
@@ -94,7 +94,7 @@ void dibujarPaisesMedicos() {
     //}
     float x = baseMargin+paises[i].densidadMedicos*multiplier;
     float y = baseMargin+paises[i].densidadMedicos*multiplier;
-    shape(paises[i].shape, mouseX+x*cos(angulo), mouseY+y*sin(angulo),100,100);
+    shape(paises[i].shape, mouseX+x*cos(angulo), mouseY+y*sin(angulo));
     angulo+=avanceAngulo;
   }
 }
@@ -109,7 +109,7 @@ void dibujarPaisesFarmacias() {
     //}
     float x = baseMargin+paises[i].densidadFarmacias*multiplier;
     float y = baseMargin+paises[i].densidadFarmacias*multiplier;
-    shape(paises[i].shape, mouseX+x*cos(angulo), mouseY+y*sin(angulo),100,100);
+    shape(paises[i].shape, mouseX+x*cos(angulo), mouseY+y*sin(angulo));
     angulo+=avanceAngulo;
   }
 }
@@ -124,7 +124,7 @@ void dibujarPaisesDentistas() {
     //}
     float x = baseMargin+paises[i].densidadDentistas*multiplier;
     float y = baseMargin+paises[i].densidadDentistas*multiplier;
-    shape(paises[i].shape, mouseX+x*cos(angulo), mouseY+y*sin(angulo),100,100);
+    shape(paises[i].shape, mouseX+x*cos(angulo), mouseY+y*sin(angulo));
     angulo+=avanceAngulo;
   }
 }
