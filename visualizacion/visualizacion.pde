@@ -1,7 +1,5 @@
 Table dataset; //<>//
 Pais[] paises;
-PFont letra;
-int contador = 0;
 int margin = 100;
 int pshapes = 80;
 int baseMargin = 50;
@@ -21,8 +19,6 @@ void setup() {
   background(255);
   cargarIconos();
   dibujarIconos();
-  //letra = createFont("SansSerif", 48);
-  //textFont(letra, 30);
   fill(0);
   dataset = loadTable("WHO.csv", "header");
   paises = new Pais[dataset.getRowCount()];
@@ -61,10 +57,6 @@ void cargarIconos() {
   farmacias = loadShape("pill-and-tablet.svg");
   medicos = loadShape("stethoscope.svg");
   dentistas = loadShape("tooth-with-braces.svg");
-}
-
-void mouseClicked() {
-  contador++;
 }
 
 void dibujarIconos() {
