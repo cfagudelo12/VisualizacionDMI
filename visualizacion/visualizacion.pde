@@ -24,7 +24,7 @@ void setup() {
   dataset = loadTable("WHO.csv", "header");
   paises = new Pais[dataset.getRowCount()];
   int c = 0;
-  float scale = 0.3;
+  float scale = 0.4;
   int current = 75;
   for (TableRow row : dataset.rows()) {
     String codigo = row.getString("ISO 3166-1 2 Letter Code"); //<>//
@@ -94,11 +94,6 @@ void dibujarPaisesMedicos() {
   float angulo = 0;
   float div = 8400;
   for(int i = 0; i < paises.length; i++) {
-    //if(angulo>=0&&angulo<=PI/2) {
-    //} else if(angulo>PI/2&&angulo<=PI) {
-    //} else if(angulo>PI&&angulo<3*PI/4) {
-    //} else {
-    //}
     float x = div/paises[i].densidadMedicos;
     float y = div/paises[i].densidadMedicos;
     shape(paises[i].shape, mouseX+x*cos(angulo), mouseY+y*sin(angulo));
@@ -110,11 +105,6 @@ void dibujarPaisesFarmacias() {
   float angulo = 0;
   float div = 2400;
   for(int i = 0; i < paises.length; i++) {
-    //if(angulo>=0&&angulo<=PI/2) {
-    //} else if(angulo>PI/2&&angulo<=PI) {
-    //} else if(angulo>PI&&angulo<3*PI/4) {
-    //} else {
-    //}
     float x = div/paises[i].densidadFarmacias;
     float y = div/paises[i].densidadFarmacias;
     shape(paises[i].shape, mouseX+x*cos(angulo), mouseY+y*sin(angulo));
@@ -126,11 +116,6 @@ void dibujarPaisesDentistas() {
   float angulo = 0;
   float div = 1600;
   for(int i = 0; i < paises.length; i++) {
-    //if(angulo>=0&&angulo<=PI/2) {
-    //} else if(angulo>PI/2&&angulo<=PI) {
-    //} else if(angulo>PI&&angulo<3*PI/4) {
-    //} else {
-    //}
     float x = div/paises[i].densidadDentistas;
     float y = div/paises[i].densidadDentistas;
     shape(paises[i].shape, mouseX+x*cos(angulo), mouseY+y*sin(angulo));
